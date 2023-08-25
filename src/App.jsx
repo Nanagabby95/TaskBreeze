@@ -1,25 +1,36 @@
 import React, { useState } from 'react';
 
+// STEP 1
+// INITIALIZE REACT STATE FOR TODO AND TODOINPUT 
 function Todo() {
-  const [tasks, setTasks] = useState([]);
+  const [todo, setTodo] = useState([]);
   const [Input, setInput] = useState('');
 
+// STEP 2
+// CREATE A FUNCTION TO ADD TODO 
   const addTask = () => {
+    // Check if the input is not empty
     if (Input.trim() !== '') {
-      setTasks([...tasks, { task: Input, completed: false }]);
+      // Create a new task object and update todo state
+      setTodo([...todo, { todo: Input, completed: false }]);
+      // always clear the input field
       setInput('');
     }
   };
 
+  // STEP 3
+  // toggle task completion and map through the todo array
   const toggleTask = (index) => {
-    const updatedTasks = tasks.map((task, i) =>
+    const updatedlists = todo.map((task, i) =>
       i === index ? { ...task, completed: !task.completed } : task
     );
-    setTasks(updatedTasks);
+    // update the todo list with updates array of tasks
+    setTodo(updatedlists);
   };
-
+  //STEP 4
+  //  CLEAR ALL LISTS AND SET THE TODO LIST TO EMPTY
   const clearAllTasks = () => {
-    setTasks([]);
+    setTodo([]);
   };
 
   return (
@@ -44,20 +55,20 @@ function Todo() {
           </button>
         </div>
         <div className='mt-4'>
-          {tasks.map((task, index) => (
-            <div key={index} className='todoItem'>
+         {todo.map((task, index) => (
+             <div key={index} className='todoItem'>
               <input
                 className='py-2'
                 type='checkbox'
                 id={`task-${index}`}
-                checked={task.completed}
+                checked={task.completed} 
                 onChange={() => toggleTask(index)}
               />
               <label
                 htmlFor={`task-${index}`}
-                className={task.completed ? 'line-through text-gray-400' : ''}
+                className={task.completed ? 'line-through text-gray-400' : ''} 
               >
-                {task.task}
+                {task.todo}
               </label>
             </div>
           ))}
